@@ -249,7 +249,7 @@
                   class="hidden sm:flex flex-col flex-shrink-0 items-end space-y-3"
                 >
                   <p class="flex text-gray-500 text-sm space-x-2">
-                    <span> Air Date - {{ episode.air_date }}</span>
+                    <span> Air Date - {{ formatDate(episode.air_date) }}</span>
                   </p>
                 </div>
               </div>
@@ -269,6 +269,7 @@ import httpClient from "../plugins/interceptor";
 import Loader from "../components/Loader.vue";
 import { useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
+import moment from "moment";
 import {
   Disclosure,
   DisclosureButton,
@@ -331,6 +332,10 @@ export default {
       }
     };
 
+    const formatDate = (date) => {
+      return moment(date).format("MMMM Do YYYY, h:mm:ss a");
+    };
+
     onMounted(async () => {
       const route = useRoute();
       await getShowDetail(route.params.id);
@@ -338,6 +343,7 @@ export default {
     return {
       navigation,
       userNavigation,
+      formatDate,
       data,
       page,
     };
