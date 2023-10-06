@@ -33,7 +33,7 @@ This shows the homepage, you can search shows and view the most popular shows on
 
 The second screenshot shows the detail page of a show. This displays the number of seasons, episodes and more related to a given TV show.
 
-![alt text](./screenshots/screenshot-2.png)
+![alt text](./screenshots/Screenshot-2.png)
 ## Recommended IDE Setup
 
 I used VS Code with recommended plugins for Vue 3 app development.
