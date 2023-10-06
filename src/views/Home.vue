@@ -15,7 +15,10 @@
                   @click="searchShow"
                   class="absolute cursor-pointer inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
                 >
-                  <SearchIcon class="h-5 w-5 cursor-pointer" aria-hidden="true" />
+                  <SearchIcon
+                    class="h-5 w-5 cursor-pointer"
+                    aria-hidden="true"
+                  />
                 </div>
                 <input
                   id="search"
@@ -46,14 +49,13 @@
           <div class="hidden lg:block lg:w-80">
             <div class="flex items-center justify-end">
               <div class="flex">
-                <a
+                <router-link
                   v-for="item in navigation"
                   :key="item.name"
-                  :href="item.href"
+                  :to="{ name: item.name}"
                   class="px-3 py-2 rounded-md text-sm font-medium text-indigo-200 hover:text-white"
-                  :aria-current="item.current ? 'page' : undefined"
-                  >{{ item.name }}</a
-                >
+                  >{{ item.name }}
+                </router-link>
               </div>
               <!-- Profile dropdown -->
               <Menu as="div" class="ml-4 relative flex-shrink-0">
@@ -159,30 +161,19 @@
                     </div>
                     <div class="space-y-1">
                       <div class="text-sm font-medium text-gray-900">
-                        Debbie Lewis
+                        John Snow
                       </div>
-                      <a href="#" class="group flex items-center space-x-2.5">
-                        <svg
-                          class="h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                          aria-hidden="true"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                        <span
-                          class="text-sm text-gray-500 group-hover:text-gray-900 font-medium"
-                          >debbielewis</span
-                        >
-                      </a>
                     </div>
                   </div>
                   <!-- Action buttons -->
                   <div class="flex flex-col sm:flex-row xl:flex-col">
+                    <button
+                      @click="searchShow"
+                      type="button"
+                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full"
+                    >
+                      Search
+                    </button>
                     <button
                       @click="getNextPage"
                       type="button"
@@ -197,6 +188,7 @@
                     >
                       Previous Page
                     </button>
+                    
                   </div>
                 </div>
               </div>
@@ -305,20 +297,25 @@
                   class="hidden sm:flex flex-col flex-shrink-0 items-end space-y-3"
                 >
                   <p class="flex items-center space-x-4">
-                    <a
-                      :href="show.permalink"
+                    <router-link 
                       class="relative text-sm text-gray-500 hover:text-gray-900 font-medium"
+                      :to="{ name: 'ShowDetail', params: { id: show.id }}">View</router-link>
+                    <span
+                      :class="
+                        show.status === 'Ended' ? 'bg-red-200' : 'bg-green-200'
+                      "
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-green-800"
                     >
-                      View
-                    </a>
-                    <span :class="show.status === 'Ended' ? 'bg-red-200' : 'bg-green-200'" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-green-800">
                       {{ show.status }}
                     </span>
                   </p>
                   <p class="flex text-gray-500 text-sm space-x-2">
                     <span> Start Date - {{ show.start_date }}</span>
                     <span aria-hidden="true">&middot;</span>
-                    <span>End Date - {{ show.end_date ? show.end_date : "On-going" }}</span>
+                    <span
+                      >End Date -
+                      {{ show.end_date ? show.end_date : "On-going" }}</span
+                    >
                     <span aria-hidden="true">&middot;</span>
                     <span>{{ show.country }}</span>
                   </p>
@@ -356,8 +353,7 @@ import {
 import { MenuAlt1Icon, XIcon } from "@heroicons/vue/outline";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Domains", href: "#", current: false },
+  { name: "Home", href: "#", current: true },
 ];
 const userNavigation = [
   { name: "Your Profile", href: "#" },
@@ -403,9 +399,10 @@ export default {
 
     const getMostPopular = async () => {
       try {
-        const response = await httpClient.get("most-popular?page=" + page.value);
+        const response = await httpClient.get(
+          "most-popular?page=" + page.value
+        );
         data.value = response.data;
-
       } catch (error) {
         console.error(error);
       }
@@ -413,10 +410,11 @@ export default {
 
     const searchShow = async () => {
       try {
-        console.log('Searching now ', searchStr.value)
-        const response = await httpClient.get(`search?q=${searchStr.value}&page=1`);
+        console.log("Searching now ", searchStr.value);
+        const response = await httpClient.get(
+          `search?q=${searchStr.value}&page=1`
+        );
         data.value = response.data;
-
       } catch (error) {
         console.error(error);
       }
@@ -432,7 +430,7 @@ export default {
       getPreviousPage,
       searchShow,
       data,
-      searchStr
+      searchStr,
     };
   },
 };
