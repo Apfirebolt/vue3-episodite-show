@@ -1,6 +1,22 @@
-# Vue 3 + Vite
+# Vue Episodite
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This is a simple web application in Vue 3 which makes use of API from Episodate.com to display TV shows related data.
+
+## Technologies Used
+
+- Vue 3
+- Tailwind CSS
+- Vite
+
+## Features
+
+- Users can search for a TV show.
+- Users can view details and episodes of a TV show.
+- Users can see list of most popular TV shows updated from the Episodate.com API.
+
+## Screenshots
+
+To be added later
 
 ## Recommended IDE Setup
 

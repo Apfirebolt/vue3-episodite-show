@@ -256,6 +256,9 @@
             </li>
           </ul>
         </div>
+        <div v-else class="bg-white lg:min-w-0 lg:flex-1">
+          <Loader />
+        </div>
       </div>
     </div>
   </div>
@@ -263,6 +266,7 @@
 
 <script>
 import httpClient from "../plugins/interceptor";
+import Loader from "../components/Loader.vue";
 import { useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
 import {
@@ -312,6 +316,7 @@ export default {
     SortAscendingIcon,
     StarIcon,
     XIcon,
+    Loader,
   },
   setup() {
     const data = ref(null);

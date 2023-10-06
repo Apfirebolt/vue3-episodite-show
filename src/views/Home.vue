@@ -135,7 +135,7 @@
         </div>
       </DisclosurePanel>
     </Disclosure>
-
+    
     <!-- 3 column wrapper -->
     <div class="flex-grow w-full max-w-7xl mx-auto xl:px-8 lg:flex">
       <!-- Left sidebar & main wrapper -->
@@ -324,6 +324,9 @@
             </li>
           </ul>
         </div>
+        <div v-else class="bg-white lg:min-w-0 lg:flex-1">
+          <Loader />
+        </div>
       </div>
     </div>
   </div>
@@ -332,6 +335,7 @@
 <script>
 import httpClient from "../plugins/interceptor";
 import { onMounted, ref } from "vue";
+import Loader from "../components/Loader.vue";
 import {
   Disclosure,
   DisclosureButton,
@@ -379,6 +383,7 @@ export default {
     SortAscendingIcon,
     StarIcon,
     XIcon,
+    Loader
   },
   setup() {
     const data = ref(null);
