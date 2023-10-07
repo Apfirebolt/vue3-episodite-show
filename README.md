@@ -12,6 +12,8 @@ This is a simple web application in Vue 3 which makes use of API from Episodate.
 
 I was searching for open APIs which provide limited number of requests for free with useful data. I stumbled across this and thought of turning this into a Vue 3 mini-project. This project also uses dynamic components from Headless UI and is completely responsive ie mobile friendly.
 
+Pinia store is added with some dummy test store variables. 
+
 ## Technologies Used
 
 - Vue 3
