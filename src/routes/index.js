@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import ShowDetail from '../views/ShowDetail.vue'
 import PiniaExample from '../views/PiniaExample.vue'
 import NotFound from '../views/NotFound.vue'
+import ComposableExample from '../views/Composable.vue'
 
 const routes = [
     {
@@ -19,6 +20,11 @@ const routes = [
         path: '/example',
         name: 'PiniaExample',
         component: PiniaExample,
+    },
+    {
+        path: '/composable',
+        name: 'ComposableExample',
+        component: ComposableExample,
     },
     {
         path: '/:catchAll(.*)',
