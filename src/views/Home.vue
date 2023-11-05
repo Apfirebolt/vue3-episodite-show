@@ -1,15 +1,13 @@
 <template>
-  <div class="fixed top-0 left-0 w-1/2 h-full bg-white" aria-hidden="true" />
-  <div class="fixed top-0 right-0 w-1/2 h-full bg-gray-50" aria-hidden="true" />
   <div class="relative min-h-full flex flex-col">
     <!-- Navbar -->
     <Header />
     <!-- 3 column wrapper -->
     <div class="flex-grow w-full max-w-7xl mx-auto xl:px-8 lg:flex">
       <!-- Left sidebar & main wrapper -->
-      <div class="flex-1 min-w-0 bg-white xl:flex">
+      <div class="flex-1 min-w-0 xl:flex">
         <!-- Account profile -->
-        <div class="xl:flex-shrink-0 xl:w-64 xl:border-r xl:border-gray-200 bg-white">
+        <div class="xl:flex-shrink-0 xl:w-64 xl:border-r xl:border-gray-200">
           <div class="pl-4 pr-6 py-6 sm:pl-6 lg:pl-8 xl:pl-0">
             <div class="flex items-center justify-between">
               <div class="flex-1 space-y-8">
@@ -44,15 +42,15 @@
                       </div>
                     </div>
                     <button @click="searchShow" type="button"
-                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full">
+                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-700 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full">
                       Search
                     </button>
                     <button @click="getNextPage" type="button"
-                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full">
+                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-700 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full">
                       Next Page
                     </button>
                     <button @click="getPreviousPage" type="button"
-                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full">
+                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-700 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full">
                       Previous Page
                     </button>
 
@@ -227,7 +225,6 @@ export default {
 
     const searchShow = async () => {
       try {
-        console.log("Searching now ", searchStr.value);
         const response = await httpClient.get(
           `search?q=${searchStr.value}&page=1`
         );

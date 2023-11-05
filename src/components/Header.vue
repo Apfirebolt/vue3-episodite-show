@@ -1,5 +1,5 @@
 <template>
-    <Disclosure as="nav" class="flex-shrink-0 bg-indigo-600" v-slot="{ open }">
+    <Disclosure as="nav" class="flex-shrink-0 bg-rose-500" v-slot="{ open }">
         <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
             <div class="relative flex items-center justify-between h-16">
                 <!-- Search section -->
@@ -7,7 +7,7 @@
                 <div class="flex lg:hidden">
                     <!-- Mobile menu button -->
                     <DisclosureButton
-                        class="bg-indigo-600 inline-flex items-center justify-center p-2 rounded-md text-indigo-400 hover:text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
+                        class="bg-rose-500 inline-flex items-center justify-center p-2 rounded-md text-indigo-400 hover:text-white hover:bg-rose-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-600 focus:ring-white">
                         <span class="sr-only">Open main menu</span>
                         <MenuAlt1Icon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
                         <XIcon v-else class="block h-6 w-6" aria-hidden="true" />
@@ -60,14 +60,14 @@
                 <DisclosureButton v-for="item in navigation" :key="item.name" as="a" :href="item.href" :class="[
                     item.current
                         ? 'text-white bg-indigo-800'
-                        : 'text-indigo-200 hover:text-indigo-100 hover:bg-indigo-600',
+                        : 'text-indigo-200 hover:text-indigo-100 hover:bg-rose-500',
                     'block px-3 py-2 rounded-md text-base font-medium',
                 ]" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</DisclosureButton>
             </div>
             <div class="pt-4 pb-3 border-t border-indigo-800">
                 <div class="px-2 space-y-1">
                     <DisclosureButton v-for="item in userNavigation" :key="item.name" as="a" :href="item.href"
-                        class="block px-3 py-2 rounded-md text-base font-medium text-indigo-200 hover:text-indigo-100 hover:bg-indigo-600">
+                        class="block px-3 py-2 rounded-md text-base font-medium text-indigo-200 hover:text-indigo-100 hover:bg-rose-500">
                         {{ item.name }}</DisclosureButton>
                 </div>
             </div>
