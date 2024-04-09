@@ -13,18 +13,7 @@
               <div class="flex-1 space-y-8">
                 <div class="space-y-8 sm:space-y-0 sm:flex sm:justify-between sm:items-center xl:block xl:space-y-8">
                   <!-- Profile -->
-                  <div class="flex items-center space-x-3">
-                    <div class="flex-shrink-0 h-12 w-12">
-                      <img class="h-12 w-12 rounded-full"
-                        src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=256&h=256&q=80"
-                        alt="" />
-                    </div>
-                    <div class="space-y-1">
-                      <div class="text-sm font-medium text-gray-900">
-                        John Snow
-                      </div>
-                    </div>
-                  </div>
+                  
                   <!-- Action buttons -->
                   <div class="flex flex-col sm:flex-row xl:flex-col">
                     <div class="flex-1 flex justify-center lg:justify-end">
@@ -42,15 +31,15 @@
                       </div>
                     </div>
                     <button @click="searchShow" type="button"
-                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-700 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full">
+                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-700 hover:bg-rose-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full">
                       Search
                     </button>
                     <button @click="getNextPage" type="button"
-                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-700 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full">
+                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-700 hover:bg-rose-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full">
                       Next Page
                     </button>
                     <button @click="getPreviousPage" type="button"
-                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-700 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full">
+                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-700 hover:bg-rose-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full">
                       Previous Page
                     </button>
 

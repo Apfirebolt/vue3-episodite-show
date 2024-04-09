@@ -10,29 +10,7 @@
       <!-- Left sidebar & main wrapper -->
       <div class="flex-1 min-w-0 bg-white xl:flex">
         <!-- Account profile -->
-        <div class="xl:flex-shrink-0 xl:w-64 xl:border-r xl:border-gray-200 bg-white">
-          <div class="pl-4 pr-6 py-6 sm:pl-6 lg:pl-8 xl:pl-0">
-            <div class="flex items-center justify-between">
-              <div class="flex-1 space-y-8">
-                <div class="space-y-8 sm:space-y-0 sm:flex sm:justify-between sm:items-center xl:block xl:space-y-8">
-                  <!-- Profile -->
-                  <div class="flex items-center space-x-3">
-                    <div class="flex-shrink-0 h-12 w-12">
-                      <img class="h-12 w-12 rounded-full"
-                        src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=256&h=256&q=80"
-                        alt="" />
-                    </div>
-                    <div class="space-y-1">
-                      <div class="text-sm font-medium text-gray-900">
-                        Debbie Lewis
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
 
         <!-- Shows List -->
         <div v-if="data" class="bg-white lg:min-w-0 lg:flex-1">
