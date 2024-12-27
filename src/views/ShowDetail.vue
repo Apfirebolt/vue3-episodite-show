@@ -84,7 +84,7 @@
           </div>
 
           <ul role="list" class="relative z-0 divide-y divide-gray-200 border-b border-gray-200">
-            <li v-for="episode in data.episodes" :key="episode.air_date"
+            <li v-for="(episode, index) in data.episodes.slice(0, itemCount)" :key="episode.air_date"
               class="relative pl-4 pr-6 py-5 hover:bg-gray-50 sm:py-6 sm:pl-6 lg:pl-8 xl:pl-6">
               <div class="flex items-center justify-between space-x-4">
                 <!-- Repo name and link -->
@@ -99,9 +99,7 @@
                   <span class="text-sm text-gray-500 group-hover:text-gray-900 font-medium">Season - {{ episode.season
                   }}</span>
                 </div>
-                <div class="sm:hidden">
-                  <ChevronRightIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
-                </div>
+              
                 <!-- Repo meta info -->
                 <div class="hidden sm:flex flex-col flex-shrink-0 items-end space-y-3">
                   <p class="flex text-gray-500 text-sm space-x-2">
@@ -134,8 +132,6 @@ import {
   MenuItems,
 } from "@headlessui/vue";
 
-import { MenuAlt1Icon, XIcon } from "@heroicons/vue/outline";
-
 export default {
   components: {
     Menu,
@@ -148,6 +144,7 @@ export default {
   setup() {
     const data = ref(null);
     const page = ref(1);
+    const itemCount = ref(10);
 
     const getShowDetail = async (id) => {
       try {
@@ -162,12 +159,30 @@ export default {
       return moment(date).format("MMMM Do YYYY, h:mm:ss a");
     };
 
+    const scrollHandler = () => {
+      if (
+        // check if bottom of the page
+        window.innerHeight + window.scrollY >= document.body.offsetHeight ||
+        window.innerHeight + window.scrollY >= document.documentElement.offsetHeight
+      ) {
+        // pause for 500 ms and then increase the itemCount by 10
+        setTimeout(() => {
+          itemCount.value = itemCount.value + 10;
+        }, 500);
+      }
+        return;
+    };
+
     onMounted(async () => {
       const route = useRoute();
       await getShowDetail(route.params.id);
+
+      window.addEventListener("scroll", scrollHandler);
     });
     return {
       formatDate,
+      scrollHandler,
+      itemCount,
       data,
       page,
     };

@@ -18,7 +18,7 @@
                     <div class="flex items-center justify-end">
                         <div class="flex">
                             <router-link v-for="item in navigation" :key="item.name" :to="{ name: item.name }"
-                                class="px-3 py-2 rounded-md text-sm font-medium text-indigo-200 hover:text-white">{{
+                                class="px-3 py-2 rounded-md text-lg font-semibold text-neutral-200 hover:text-white">{{
                                     item.name }}
                             </router-link>
                         </div>

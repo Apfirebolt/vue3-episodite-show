@@ -98,14 +98,14 @@
                   <div class="flex items-center space-x-3">
                     <span class="block">
                       <h2 class="text-sm font-medium">
-                        <a :href="show.permalink">
+                        <a :href="getFullLink(show.permalink)">
                           <span class="absolute inset-0" aria-hidden="true" />
                           {{ show.name }}
                         </a>
                       </h2>
                     </span>
                   </div>
-                  <a :href="show.permalink" class="relative group flex items-center space-x-2.5">
+                  <a :href="getFullLink(show.permalink)" class="relative group flex items-center space-x-2.5">
                     <img class="h-16 w-16" :src="show.image_thumbnail_path" alt="Workflow" />
                     <span class="text-sm text-gray-500 group-hover:text-gray-900 font-medium">{{ show.name }}</span>
                   </a>
@@ -223,6 +223,10 @@ export default {
       }
     };
 
+    const getFullLink = (link) => {
+      return "https://www.episodate.com/tv-show/" + link;
+    };
+
     onMounted(async () => {
       await getMostPopular();
     });
@@ -230,6 +234,7 @@ export default {
       getNextPage,
       getPreviousPage,
       searchShow,
+      getFullLink,
       data,
       searchStr,
     };
