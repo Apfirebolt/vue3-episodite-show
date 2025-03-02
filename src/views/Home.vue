@@ -47,21 +47,21 @@
                     <button
                       @click="searchShow"
                       type="button"
-                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-700 hover:bg-rose-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full"
+                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-primary bg-secondary-100 hover:bg-secondary-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full"
                     >
                       Search
                     </button>
                     <button
                       @click="getNextPage"
                       type="button"
-                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-700 hover:bg-rose-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full"
+                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-primary bg-secondary-100 hover:bg-secondary-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full"
                     >
                       Next Page
                     </button>
                     <button
                       @click="getPreviousPage"
                       type="button"
-                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-700 hover:bg-rose-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full"
+                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-primary bg-secondary-100 hover:bg-secondary-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full"
                     >
                       Previous Page
                     </button>
@@ -129,7 +129,7 @@
             <div
               v-for="show in data.tv_shows"
               :key="show.id"
-              class="bg-white shadow-md rounded-lg overflow-hidden"
+              class="bg-secondary-200 shadow-md rounded-lg overflow-hidden"
             >
               <img
                 :src="show.image_thumbnail_path"
@@ -148,12 +148,12 @@
                 <div class="flex space-x-2 my-3">
                   <a
                   :href="getFullLink(show.permalink)"
-                  class="w-32 block text-center bg-orange-600 text-white py-2 rounded transition duration-300 ease-in-out transform hover:bg-orange-800 hover:scale-105"
+                  class="w-32 block text-center bg-secondary-300 text-white py-2 rounded transition duration-300 ease-in-out transform hover:bg-danger hover:scale-105"
                   >Details</a
                   >
                   <router-link
                   :to="{ name: 'ShowDetail', params: { id: show.id } }"
-                  class="w-32 block text-center bg-orange-600 text-white py-2 rounded transition duration-300 ease-in-out transform hover:bg-orange-800 hover:scale-105"
+                  class="w-32 block text-center bg-secondary-100 text-black py-2 rounded transition duration-300 ease-in-out transform hover:bg-danger hover:scale-105"
                   >Show</router-link
                   >
                 </div>

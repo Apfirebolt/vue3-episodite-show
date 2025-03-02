@@ -1,5 +1,5 @@
 <template>
-  <Disclosure as="nav" class="flex-shrink-0 bg-rose-500" v-slot="{ open }">
+  <Disclosure as="nav" class="flex-shrink-0 bg-primary text-secondary-100" v-slot="{ open }">
     <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
       <div class="relative flex items-center justify-between h-16">
         <!-- Search section -->
@@ -7,7 +7,7 @@
         <div class="flex lg:hidden">
           <!-- Mobile menu button -->
           <DisclosureButton
-            class="bg-rose-500 inline-flex items-center justify-center p-2 rounded-md text-neutral-100 hover:text-white hover:bg-rose-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-600 focus:ring-white"
+            class="bg-rose-500 inline-flex items-center justify-center p-2 rounded-md hover:text-white hover:bg-rose-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-600 focus:ring-white"
           >
             <span class="sr-only">Open main menu</span>
             <MenuAlt1Icon

@@ -8,12 +8,12 @@
     <!-- 3 column wrapper -->
     <div class="flex-grow w-full max-w-7xl mx-auto xl:px-8 lg:flex">
       <!-- Left sidebar & main wrapper -->
-      <div class="flex-1 min-w-0 bg-white xl:flex">
+      <div class="flex-1 min-w-0 bg-secondary-100 text-primary xl:flex">
         <!-- Account profile -->
         
 
         <!-- Shows List -->
-        <div v-if="data" class="bg-white lg:min-w-0 lg:flex-1">
+        <div v-if="data" class="lg:min-w-0 lg:flex-1">
           <div
             class="pl-4 pr-6 pt-4 pb-4 border-b border-t border-gray-200 sm:pl-6 lg:pl-8 xl:pl-6 xl:pt-6 xl:border-t-0">
             <div class="flex items-center">
@@ -21,22 +21,22 @@
               <h1 class="flex-1 text-lg font-medium">{{ data.name }}</h1>
               <div>
                 <p>
-                  <span class="text-sm text-gray-500">Status : {{ data.status }}</span>
+                  <span class="text-sm">Status : {{ data.status }}</span>
                 </p>
                 <p>
-                  <span class="text-sm text-gray-500">Ratings : {{ data.rating }}</span>
+                  <span class="text-sm">Ratings : {{ data.rating }}</span>
                 </p>
                 <p>
-                  <span class="text-sm text-gray-500">Rating Count : {{ data.rating_count }}</span>
+                  <span class="text-sm">Rating Count : {{ data.rating_count }}</span>
                 </p>
                 <p>
-                  <span class="text-sm text-gray-500">Country : {{ data.country }}</span>
+                  <span class="text-sm">Country : {{ data.country }}</span>
                 </p>
                 <p>
-                  <span class="text-sm text-gray-500">Start Date : {{ data.start_date }}</span>
+                  <span class="text-sm">Start Date : {{ data.start_date }}</span>
                 </p>
                 <p>
-                  <span class="text-sm text-gray-500">End Date : {{ data.end_date }}</span>
+                  <span class="text-sm">End Date : {{ data.end_date }}</span>
                 </p>
               </div>
               <Menu as="div" class="relative">
@@ -47,7 +47,7 @@
                     <a href="#" :class="[
                       active
                         ? 'bg-gray-100 text-gray-900'
-                        : 'text-gray-700',
+                        : '',
                       'block px-4 py-2 text-sm',
                     ]">Name</a>
                     </MenuItem>
@@ -85,7 +85,7 @@
 
           <ul role="list" class="relative z-0 divide-y divide-gray-200 border-b border-gray-200">
             <li v-for="(episode, index) in data.episodes.slice(0, itemCount)" :key="episode.air_date"
-              class="relative pl-4 pr-6 py-5 hover:bg-gray-50 sm:py-6 sm:pl-6 lg:pl-8 xl:pl-6">
+              class="relative pl-4 pr-6 py-5 hover:bg-secondary-300 hover:text-white transition-all duration-200 sm:py-6 sm:pl-6 lg:pl-8 xl:pl-6">
               <div class="flex items-center justify-between space-x-4">
                 <!-- Repo name and link -->
                 <div class="min-w-0 space-y-3">
@@ -96,13 +96,13 @@
                       </h2>
                     </span>
                   </div>
-                  <span class="text-sm text-gray-500 group-hover:text-gray-900 font-medium">Season - {{ episode.season
+                  <span class="text-sm group-hover:text-gray-900 font-medium">Season - {{ episode.season
                   }}</span>
                 </div>
               
                 <!-- Repo meta info -->
                 <div class="hidden sm:flex flex-col flex-shrink-0 items-end space-y-3">
-                  <p class="flex text-gray-500 text-sm space-x-2">
+                  <p class="flex text-sm space-x-2">
                     <span> Air Date - {{ formatDate(episode.air_date) }}</span>
                   </p>
                 </div>

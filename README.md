@@ -26,6 +26,31 @@ Pinia store is added with some dummy test store variables.
 - Users can search for a TV show.
 - Users can view details and episodes of a TV show.
 - Users can see list of most popular TV shows updated from the Episodate.com API.
+- Uses custom colors in Tailwind CSS with the following configuration.
+
+```
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: '#1D3557',
+        danger: '#E63946',
+        secondary: {
+          100: '#F1FAEE',
+          200: '#A8DADC',
+          300: '#457B9D',
+        },
+      }
+    },
+  },
+  plugins: [],
+}
+```
 
 ## Screenshots
 
