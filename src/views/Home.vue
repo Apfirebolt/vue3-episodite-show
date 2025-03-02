@@ -129,7 +129,7 @@
             <div
               v-for="show in data.tv_shows"
               :key="show.id"
-              class="bg-secondary-200 shadow-md rounded-lg overflow-hidden"
+              class="bg-secondary-200 dark:bg-gray-800 dark:text-white shadow-md rounded-lg overflow-hidden"
             >
               <img
                 :src="show.image_thumbnail_path"
@@ -138,11 +138,11 @@
               />
               <div class="p-4">
                 <h2 class="text-lg font-semibold">{{ show.name }}</h2>
-                <p class="text-gray-600">{{ show.network }}</p>
-                <p class="text-gray-600">Country: {{ show.country }}</p>
-                <p class="text-gray-600">Start Date: {{ show.start_date }}</p>
-                <p class="text-gray-600">End Date: {{ show.end_date }}</p>
-                <p class="text-gray-600">
+                <p class="text-primary dark:text-white">{{ show.network }}</p>
+                <p class="text-primary dark:text-white">Country: {{ show.country }}</p>
+                <p class="text-primary dark:text-white">Start Date: {{ show.start_date }}</p>
+                <p class="text-primary dark:text-white">End Date: {{ show.end_date }}</p>
+                <p class="text-primary dark:text-white">
                   Running: {{ show.status === "Running" ? "Yes" : "No" }}
                 </p>
                 <div class="flex space-x-2 my-3">
