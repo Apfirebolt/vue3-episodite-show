@@ -12,7 +12,7 @@ This is a simple web application in Vue 3 which makes use of API from Episodate.
 
 I was searching for open APIs which provide limited number of requests for free with useful data. I stumbled across this and thought of turning this into a Vue 3 mini-project. This project also uses dynamic components from Headless UI and is completely responsive ie mobile friendly.
 
-Pinia store is added with some dummy test store variables. 
+Pinia store is added with some dummy test store variables.
 
 ## Technologies Used
 
@@ -52,6 +52,42 @@ export default {
 }
 ```
 
+### Testing
+
+```
+npm install -D vitest @vue/test-utils jsdom
+```
+
+Make changes to the vite config file
+
+```javascript
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [vue()],
+  server: {
+    port: 8080,
+  },
+  test: {
+    globals: true,
+    environment: "jsdom",
+  },
+});
+```
+
+Add a script to run tests in the package.json file
+
+```Javascript
+"scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+```
+
 ## Screenshots
 
 This shows the homepage, you can search shows and view the most popular shows on the homepage.
@@ -61,6 +97,7 @@ This shows the homepage, you can search shows and view the most popular shows on
 The second screenshot shows the detail page of a show. This displays the number of seasons, episodes and more related to a given TV show.
 
 ![alt text](./screenshots/Screenshot-2.png)
+
 ## Recommended IDE Setup
 
 I used VS Code with recommended plugins for Vue 3 app development.
