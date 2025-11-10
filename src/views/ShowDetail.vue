@@ -10,105 +10,184 @@
       <!-- Left sidebar & main wrapper -->
       <div class="flex-1 min-w-0 bg-secondary-100 text-primary xl:flex">
         <!-- Account profile -->
-        
 
         <!-- Shows List -->
         <div v-if="data" class="lg:min-w-0 lg:flex-1">
-          <div
-            class="pl-4 pr-6 pt-4 pb-4 border-b border-t border-gray-200 sm:pl-6 lg:pl-8 xl:pl-6 xl:pt-6 xl:border-t-0">
-            <div class="flex items-center">
-              <img :src="data.image_path" class="h-16 w-16 mr-5" alt="">
-              <h1 class="flex-1 text-lg font-medium">{{ data.name }}</h1>
-              <div>
-                <p>
-                  <span class="text-sm">Status : {{ data.status }}</span>
-                </p>
-                <p>
-                  <span class="text-sm">Ratings : {{ data.rating }}</span>
-                </p>
-                <p>
-                  <span class="text-sm">Rating Count : {{ data.rating_count }}</span>
-                </p>
-                <p>
-                  <span class="text-sm">Country : {{ data.country }}</span>
-                </p>
-                <p>
-                  <span class="text-sm">Start Date : {{ data.start_date }}</span>
-                </p>
-                <p>
-                  <span class="text-sm">End Date : {{ data.end_date }}</span>
-                </p>
-              </div>
-              <Menu as="div" class="relative">
-                <MenuItems
-                  class="origin-top-right z-10 absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <div class="py-1">
-                    <MenuItem v-slot="{ active }">
-                    <a href="#" :class="[
-                      active
-                        ? 'bg-gray-100 text-gray-900'
-                        : '',
-                      'block px-4 py-2 text-sm',
-                    ]">Name</a>
-                    </MenuItem>
-                    <MenuItem v-slot="{ active }">
-                    <a href="#" :class="[
-                      active
-                        ? 'bg-gray-100 text-gray-900'
-                        : 'text-gray-700',
-                      'block px-4 py-2 text-sm',
-                    ]">Date modified</a>
-                    </MenuItem>
-                    <MenuItem v-slot="{ active }">
-                    <a href="#" :class="[
-                      active
-                        ? 'bg-gray-100 text-gray-900'
-                        : 'text-gray-700',
-                      'block px-4 py-2 text-sm',
-                    ]">Date created</a>
-                    </MenuItem>
+          <!-- Header Section -->
+          <div class="bg-white shadow-sm">
+            <div class="px-6 py-6 border-b border-gray-200">
+              <div class="flex items-start gap-6">
+                <img
+                  :src="data.image_path"
+                  class="h-32 w-32 rounded-lg object-cover shadow-md"
+                  alt=""
+                />
+                <div class="flex-1">
+                  <h1 class="text-3xl font-bold text-gray-900 mb-4">
+                    {{ data.name }}
+                  </h1>
+                  <div class="flex flex-wrap gap-3 mb-4">
+                    <span
+                      class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800"
+                    >
+                      {{ data.status }}
+                    </span>
+                    <span
+                      class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                    >
+                      {{ data.country }}
+                    </span>
+                    <span
+                      class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800"
+                    >
+                      ⭐ {{ data.rating }} ({{ data.rating_count }})
+                    </span>
                   </div>
-                </MenuItems>
-              </Menu>
+                  <div class="space-y-1 text-sm text-gray-600">
+                    <p>
+                      <span class="font-medium text-gray-700">Started:</span>
+                      {{ data.start_date }}
+                    </p>
+                    <p>
+                      <span class="font-medium text-gray-700">Ended:</span>
+                      {{ data.end_date || "Ongoing" }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="px-6 py-5 bg-gray-50">
+              <h2 class="text-lg font-semibold text-gray-900 mb-3">About</h2>
+              <p class="text-gray-700 leading-relaxed">
+                {{ data.description }}
+              </p>
             </div>
           </div>
 
-          <div class="px-3 py-2 my-2">
-            <p class="text-gray-700">
-            {{ data.description }}
-          </p>
-          </div>
-          <div class="grid grid-cols-3">
-            <img v-for="image in data.pictures" :key="image" :src="image"
-            class="max-w-sm rounded border bg-white p-1 dark:border-neutral-700 dark:bg-neutral-800" alt="..." />
-          </div>
+          <!-- Gallery Slideshow -->
+          <div
+            v-if="data.pictures && data.pictures.length"
+            class="bg-white mt-6 shadow-sm"
+          >
+            <div class="px-6 py-5 border-b border-gray-200">
+              <h2 class="text-lg font-semibold text-gray-900">Gallery</h2>
+            </div>
+            <div class="relative p-6">
+              <!-- Main Image -->
+              <div
+                class="relative aspect-video bg-gray-100 rounded-lg overflow-hidden"
+              >
+                <img
+                  :src="data.pictures[currentSlide]"
+                  class="w-full h-full object-cover"
+                  alt=""
+                />
 
-          <ul role="list" class="relative z-0 divide-y divide-gray-200 border-b border-gray-200">
-            <li v-for="(episode, index) in data.episodes.slice(0, itemCount)" :key="episode.air_date"
-              class="relative pl-4 pr-6 py-5 hover:bg-secondary-300 hover:text-white transition-all duration-200 sm:py-6 sm:pl-6 lg:pl-8 xl:pl-6">
-              <div class="flex items-center justify-between space-x-4">
-                <!-- Repo name and link -->
-                <div class="min-w-0 space-y-3">
-                  <div class="flex items-center space-x-3">
-                    <span class="block">
-                      <h2 class="text-sm font-medium">
-                        {{ episode.name }}
-                      </h2>
-                    </span>
-                  </div>
-                  <span class="text-sm group-hover:text-gray-900 font-medium">Season - {{ episode.season
-                  }}</span>
-                </div>
-              
-                <!-- Repo meta info -->
-                <div class="hidden sm:flex flex-col flex-shrink-0 items-end space-y-3">
-                  <p class="flex text-sm space-x-2">
-                    <span> Air Date - {{ formatDate(episode.air_date) }}</span>
-                  </p>
+                <!-- Navigation Buttons -->
+                <button
+                  @click="prevSlide"
+                  class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-3 rounded-full shadow-lg transition-all"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                </button>
+                <button
+                  @click="nextSlide"
+                  class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-3 rounded-full shadow-lg transition-all"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </button>
+
+                <!-- Slide Counter -->
+                <div
+                  class="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded-full text-sm"
+                >
+                  {{ currentSlide + 1 }} / {{ data.pictures.length }}
                 </div>
               </div>
-            </li>
-          </ul>
+
+              <!-- Thumbnails -->
+              <div class="mt-4 grid grid-cols-6 gap-3">
+                <img
+                  v-for="(image, index) in data.pictures"
+                  :key="image"
+                  :src="image"
+                  @click="currentSlide = index"
+                  :class="[
+                    'w-full h-20 object-cover rounded-lg cursor-pointer transition-all',
+                    currentSlide === index
+                      ? 'ring-4 ring-blue-500 opacity-100'
+                      : 'opacity-60 hover:opacity-100',
+                  ]"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Episodes List -->
+          <div class="bg-white mt-6 shadow-sm">
+            <div class="px-6 py-5 border-b border-gray-200">
+              <h2 class="text-lg font-semibold text-gray-900">Episodes</h2>
+            </div>
+            <ul role="list" class="divide-y divide-gray-200">
+              <li
+                v-for="(episode, index) in data.episodes.slice(0, itemCount)"
+                :key="episode.air_date"
+                class="px-6 py-5 hover:bg-gray-50 transition-colors duration-150 cursor-pointer"
+              >
+                <div class="flex items-center justify-between">
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-3 mb-2">
+                      <span
+                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                      >
+                        Episode {{ index + 1 }}
+                      </span>
+                      <span
+                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
+                      >
+                        Season {{ episode.season }}
+                      </span>
+                    </div>
+                    <h3 class="text-base font-semibold text-gray-900 truncate">
+                      {{ episode.name }}
+                    </h3>
+                  </div>
+                  <div class="ml-6 flex-shrink-0 text-right">
+                    <p class="text-sm text-gray-500">
+                      {{ formatDate(episode.air_date) }}
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
         <div v-else class="bg-white lg:min-w-0 lg:flex-1">
           <Loader />
@@ -125,12 +204,7 @@ import Header from "../components/Header.vue";
 import { useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
 import moment from "moment";
-import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-} from "@headlessui/vue";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 
 export default {
   components: {
@@ -139,12 +213,13 @@ export default {
     MenuItem,
     MenuItems,
     Loader,
-    Header
+    Header,
   },
   setup() {
     const data = ref(null);
     const page = ref(1);
     const itemCount = ref(10);
+    const currentSlide = ref(0);
 
     const getShowDetail = async (id) => {
       try {
@@ -159,18 +234,33 @@ export default {
       return moment(date).format("MMMM Do YYYY, h:mm:ss a");
     };
 
+    const nextSlide = () => {
+      if (data.value && data.value.pictures) {
+        currentSlide.value =
+          (currentSlide.value + 1) % data.value.pictures.length;
+      }
+    };
+
+    const prevSlide = () => {
+      if (data.value && data.value.pictures) {
+        currentSlide.value =
+          currentSlide.value === 0
+            ? data.value.pictures.length - 1
+            : currentSlide.value - 1;
+      }
+    };
+
     const scrollHandler = () => {
       if (
-        // check if bottom of the page
         window.innerHeight + window.scrollY >= document.body.offsetHeight ||
-        window.innerHeight + window.scrollY >= document.documentElement.offsetHeight
+        window.innerHeight + window.scrollY >=
+          document.documentElement.offsetHeight
       ) {
-        // pause for 500 ms and then increase the itemCount by 10
         setTimeout(() => {
           itemCount.value = itemCount.value + 10;
         }, 500);
       }
-        return;
+      return;
     };
 
     onMounted(async () => {
@@ -179,12 +269,16 @@ export default {
 
       window.addEventListener("scroll", scrollHandler);
     });
+
     return {
       formatDate,
       scrollHandler,
       itemCount,
       data,
       page,
+      currentSlide,
+      nextSlide,
+      prevSlide,
     };
   },
 };

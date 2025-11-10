@@ -78,7 +78,9 @@
             class="pl-4 pr-6 pt-4 pb-4 border-b border-t border-gray-200 sm:pl-6 lg:pl-8 xl:pl-6 xl:pt-6 xl:border-t-0"
           >
             <div class="flex items-center">
-              <h1 class="flex-1 text-lg font-medium">Top Rated Shows</h1>
+              <h1 class="flex-1 text-2xl font-bold text-gray-800">
+                Top Rated Shows
+              </h1>
               <Menu as="div" class="relative">
                 <MenuItems
                   class="origin-top-right z-10 absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -125,36 +127,58 @@
               </Menu>
             </div>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-6">
             <div
               v-for="show in data.tv_shows"
               :key="show.id"
-              class="bg-secondary-200 dark:bg-gray-800 dark:text-white shadow-md rounded-lg overflow-hidden"
+              class="bg-white dark:bg-gray-800 dark:text-white shadow-xl rounded-xl overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl"
             >
-              <img
-                :src="show.image_thumbnail_path"
-                alt="Show Thumbnail"
-                class="w-full h-48 object-cover"
-              />
-              <div class="p-4">
-                <h2 class="text-lg font-semibold">{{ show.name }}</h2>
-                <p class="text-primary dark:text-white">{{ show.network }}</p>
-                <p class="text-primary dark:text-white">Country: {{ show.country }}</p>
-                <p class="text-primary dark:text-white">Start Date: {{ show.start_date }}</p>
-                <p class="text-primary dark:text-white">End Date: {{ show.end_date }}</p>
-                <p class="text-primary dark:text-white">
-                  Running: {{ show.status === "Running" ? "Yes" : "No" }}
-                </p>
-                <div class="flex space-x-2 my-3">
+              <div class="relative overflow-hidden">
+                <img
+                  :src="show.image_thumbnail_path"
+                  alt="Show Thumbnail"
+                  class="w-full h-64 object-cover transition duration-300 transform hover:scale-110"
+                />
+                <div
+                  class="absolute top-3 right-3 bg-indigo-600 text-white px-3 py-1 rounded-full text-xs font-semibold"
+                >
+                  {{ show.status }}
+                </div>
+              </div>
+              <div class="p-5">
+                <h2
+                  class="text-xl font-bold mb-2 text-gray-800 dark:text-white truncate"
+                >
+                  {{ show.name }}
+                </h2>
+                <div class="space-y-2 text-sm">
+                  <p class="text-gray-600 dark:text-gray-300 flex items-center">
+                    <span class="font-semibold mr-2">Network:</span
+                    >{{ show.network }}
+                  </p>
+                  <p class="text-gray-600 dark:text-gray-300 flex items-center">
+                    <span class="font-semibold mr-2">Country:</span
+                    >{{ show.country }}
+                  </p>
+                  <p class="text-gray-600 dark:text-gray-300 flex items-center">
+                    <span class="font-semibold mr-2">Start:</span
+                    >{{ show.start_date }}
+                  </p>
+                  <p class="text-gray-600 dark:text-gray-300 flex items-center">
+                    <span class="font-semibold mr-2">End:</span
+                    >{{ show.end_date || "Ongoing" }}
+                  </p>
+                </div>
+                <div class="flex gap-3 mt-5">
                   <a
-                  :href="getFullLink(show.permalink)"
-                  class="w-32 block text-center bg-secondary-300 text-white py-2 rounded transition duration-300 ease-in-out transform hover:bg-danger hover:scale-105"
-                  >Details</a
+                    :href="getFullLink(show.permalink)"
+                    class="flex-1 text-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2.5 rounded-lg font-medium transition duration-300 ease-in-out transform hover:from-indigo-600 hover:to-purple-700 hover:shadow-lg"
+                    >Details</a
                   >
                   <router-link
-                  :to="{ name: 'ShowDetail', params: { id: show.id } }"
-                  class="w-32 block text-center bg-secondary-100 text-black py-2 rounded transition duration-300 ease-in-out transform hover:bg-danger hover:scale-105"
-                  >Show</router-link
+                    :to="{ name: 'ShowDetail', params: { id: show.id } }"
+                    class="flex-1 text-center bg-gradient-to-r from-pink-500 to-rose-600 text-white py-2.5 rounded-lg font-medium transition duration-300 ease-in-out transform hover:from-pink-600 hover:to-rose-700 hover:shadow-lg"
+                    >View Show</router-link
                   >
                 </div>
               </div>
