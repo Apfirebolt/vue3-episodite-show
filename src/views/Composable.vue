@@ -1,11 +1,13 @@
 <script setup>
-
+import { onMounted } from "vue";
 import { useGetData } from "../composables/getData";
 import Loader from "../components/Loader.vue";
 
 const { data, loading, getData, errorData } = useGetData();
 
-getData("https://pokeapi.co/api/v2/pokemon");
+onMounted(() => {
+  getData("https://pokeapi.co/api/v2/pokemon");
+});
 </script>
 
 <template>
