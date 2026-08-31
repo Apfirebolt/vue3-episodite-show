@@ -1,287 +1,273 @@
 <template>
-  <div class="relative min-h-full flex flex-col">
+  <div class="relative min-h-screen flex flex-col bg-slate-50 dark:bg-neutral-950 text-slate-900 dark:text-secondary-100">
     <!-- Navbar -->
     <Header />
-    <!-- 3 column wrapper -->
-    <div class="flex-grow w-full max-w-7xl mx-auto xl:px-8 lg:flex">
-      <!-- Left sidebar & main wrapper -->
-      <div class="flex-1 min-w-0 xl:flex">
-        <!-- Account profile -->
-        <div class="xl:flex-shrink-0 xl:w-48 xl:border-r xl:border-gray-200">
-          <div class="pl-4 pr-6 py-6 sm:pl-6 lg:pl-8 xl:pl-0">
-            <div class="flex items-center justify-between">
-              <div class="flex-1 space-y-8">
-                <div
-                  class="space-y-8 sm:space-y-0 sm:flex sm:justify-between sm:items-center xl:block xl:space-y-8"
-                >
-                  <!-- Profile -->
 
-                  <!-- Action buttons -->
-                  <div class="flex flex-col sm:flex-row xl:flex-col">
-                    <div class="flex-1 flex justify-center lg:justify-end">
-                      <div class="w-full my-2">
-                        <label for="search" class="sr-only">Search Shows</label>
-                        <div
-                          class="relative text-indigo-200 focus-within:text-gray-400"
-                        >
-                          <div
-                            @click="searchShow"
-                            class="absolute cursor-pointer inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                          >
-                            <SearchIcon
-                              class="h-5 w-5 cursor-pointer"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <input
-                            id="search"
-                            v-model="searchStr"
-                            name="search"
-                            class="block w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 focus:outline-none focus:bg-white focus:ring-0 focus:placeholder-gray-400 focus:text-gray-900 sm:text-sm"
-                            placeholder="Search shows"
-                            type="search"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <button
-                      @click="searchShow"
-                      type="button"
-                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-primary bg-secondary-100 hover:bg-secondary-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full"
-                    >
-                      Search
-                    </button>
-                    <button
-                      @click="getNextPage"
-                      type="button"
-                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-primary bg-secondary-100 hover:bg-secondary-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full"
-                    >
-                      Next Page
-                    </button>
-                    <button
-                      @click="getPreviousPage"
-                      type="button"
-                      class="inline-flex m-1 items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-primary bg-secondary-100 hover:bg-secondary-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 xl:w-full"
-                    >
-                      Previous Page
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <!-- 2/3 Column Main Wrapper -->
+    <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex flex-col lg:flex-row gap-8 items-start">
+        
+        <!-- Sidebar: Search & Pagination Controls -->
+        <aside class="w-full lg:w-64 shrink-0 space-y-6 bg-white dark:bg-neutral-900/60 p-5 rounded-2xl border border-slate-200 dark:border-neutral-800 shadow-sm backdrop-blur-md sticky top-6">
+          <!-- Search Box -->
+          <div>
+            <label for="search" class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+              Search Shows
+            </label>
+            <form @submit.prevent="searchShow" class="relative">
+              <input
+                id="search"
+                v-model.trim="searchStr"
+                type="search"
+                placeholder="e.g. Breaking Bad..."
+                class="w-full pl-10 pr-4 py-2.5 bg-slate-100 dark:bg-neutral-800 border border-transparent dark:border-neutral-700 rounded-xl text-sm focus:outline-none focus:border-secondary-300 focus:bg-white dark:focus:bg-neutral-900 transition-colors"
+              />
+              <button
+                type="submit"
+                aria-label="Search"
+                class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 hover:text-secondary-300 transition-colors"
+              >
+                <MagnifyingGlassIcon class="h-5 w-5" aria-hidden="true" />
+              </button>
+            </form>
           </div>
-        </div>
 
-        <!-- Shows List -->
-        <div v-if="data && data.tv_shows" class="bg-white lg:min-w-0 lg:flex-1">
-          <div
-            class="pl-4 pr-6 pt-4 pb-4 border-b border-t border-gray-200 sm:pl-6 lg:pl-8 xl:pl-6 xl:pt-6 xl:border-t-0"
-          >
-            <div class="flex items-center">
-              <h1 class="flex-1 text-2xl font-bold text-gray-800">
-                Top Rated Shows
+          <!-- Quick Actions & Pagination -->
+          <div class="space-y-2.5 pt-4 border-t border-slate-200 dark:border-neutral-800">
+            <span class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+              Navigation (Page {{ page }})
+            </span>
+            <button
+              @click="searchShow"
+              type="button"
+              class="w-full py-2.5 px-4 rounded-xl text-sm font-semibold bg-primary text-secondary-100 hover:opacity-90 active:scale-[0.99] transition-all shadow-sm flex items-center justify-center gap-2"
+            >
+              <MagnifyingGlassIcon class="h-4 w-4" />
+              <span>Submit Search</span>
+            </button>
+            <button
+              @click="getNextPage"
+              type="button"
+              class="w-full py-2.5 px-4 rounded-xl text-sm font-semibold bg-secondary-100 dark:bg-neutral-800 text-primary dark:text-secondary-100 hover:bg-secondary-200 dark:hover:bg-neutral-700 active:scale-[0.99] transition-all border border-slate-200 dark:border-neutral-700"
+            >
+              Next Page &rarr;
+            </button>
+            <button
+              @click="getPreviousPage"
+              :disabled="page <= 1"
+              type="button"
+              class="w-full py-2.5 px-4 rounded-xl text-sm font-semibold bg-secondary-100 dark:bg-neutral-800 text-primary dark:text-secondary-100 hover:bg-secondary-200 dark:hover:bg-neutral-700 active:scale-[0.99] transition-all border border-slate-200 dark:border-neutral-700 disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              &larr; Previous Page
+            </button>
+          </div>
+        </aside>
+
+        <!-- Main Content Area: Shows Grid -->
+        <section class="flex-1 min-w-0 w-full">
+          <!-- Section Header & Sorting -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 dark:border-neutral-800 gap-4">
+            <div>
+              <h1 class="text-2xl sm:text-3xl font-heading font-extrabold tracking-tight">
+                {{ isSearching ? `Search Results for "${searchStr}"` : "Top Rated Shows" }}
               </h1>
-              <Menu as="div" class="relative">
-                <MenuItems
-                  class="origin-top-right z-10 absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                >
-                  <div class="py-1">
-                    <MenuItem v-slot="{ active }">
-                      <a
-                        href="#"
-                        :class="[
-                          active
-                            ? 'bg-gray-100 text-gray-900'
-                            : 'text-gray-700',
-                          'block px-4 py-2 text-sm',
-                        ]"
-                        >Name</a
-                      >
-                    </MenuItem>
-                    <MenuItem v-slot="{ active }">
-                      <a
-                        href="#"
-                        :class="[
-                          active
-                            ? 'bg-gray-100 text-gray-900'
-                            : 'text-gray-700',
-                          'block px-4 py-2 text-sm',
-                        ]"
-                        >Date modified</a
-                      >
-                    </MenuItem>
-                    <MenuItem v-slot="{ active }">
-                      <a
-                        href="#"
-                        :class="[
-                          active
-                            ? 'bg-gray-100 text-gray-900'
-                            : 'text-gray-700',
-                          'block px-4 py-2 text-sm',
-                        ]"
-                        >Date created</a
-                      >
-                    </MenuItem>
-                  </div>
-                </MenuItems>
-              </Menu>
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+                Showing {{ data?.tv_shows?.length || 0 }} series
+              </p>
             </div>
+
+            <!-- Sort Menu -->
+            <Menu as="div" class="relative inline-block text-left self-start sm:self-auto">
+              <MenuButton
+                class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 hover:bg-slate-50 dark:hover:bg-neutral-800 transition-colors shadow-sm"
+              >
+                <BarsArrowUpIcon class="h-4 w-4 text-secondary-300" />
+                <span>Sort Shows</span>
+                <ChevronDownIcon class="h-3.5 w-3.5 opacity-60" />
+              </MenuButton>
+
+              <transition
+                enter-active-class="transition duration-100 ease-out"
+                enter-from-class="transform scale-95 opacity-0"
+                enter-to-class="transform scale-100 opacity-100"
+                leave-active-class="transition duration-75 ease-in"
+                leave-from-class="transform scale-100 opacity-100"
+                leave-to-class="transform scale-95 opacity-0"
+              >
+                <MenuItems
+                  class="absolute right-0 z-20 mt-2 w-48 origin-top-right rounded-xl bg-white dark:bg-neutral-900 shadow-xl ring-1 ring-black/5 dark:ring-white/10 p-1.5 focus:outline-none text-xs"
+                >
+                  <MenuItem v-for="sort in ['Name', 'Date Created', 'Rating']" :key="sort" v-slot="{ active }">
+                    <button
+                      type="button"
+                      :class="[
+                        active ? 'bg-secondary-100 dark:bg-neutral-800 text-primary dark:text-white' : 'text-slate-700 dark:text-slate-300',
+                        'w-full text-left px-3 py-2 rounded-lg font-medium transition-colors'
+                      ]"
+                    >
+                      {{ sort }}
+                    </button>
+                  </MenuItem>
+                </MenuItems>
+              </transition>
+            </Menu>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-6">
-            <div
+
+          <!-- Loading State -->
+          <div v-if="loading" class="py-20 flex justify-center items-center">
+            <Loader />
+          </div>
+
+          <!-- Empty State -->
+          <div
+            v-else-if="!data?.tv_shows?.length"
+            class="text-center py-20 bg-white dark:bg-neutral-900/40 rounded-2xl border border-slate-200 dark:border-neutral-800 mt-6"
+          >
+            <p class="text-base font-semibold text-slate-700 dark:text-slate-300">No shows found</p>
+            <p class="text-xs text-slate-400 mt-1">Try searching with a different title or keyword.</p>
+          </div>
+
+          <!-- Card Grid -->
+          <div v-else class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 pt-6">
+            <article
               v-for="show in data.tv_shows"
               :key="show.id"
-              class="bg-white dark:bg-gray-800 dark:text-white shadow-xl rounded-xl overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+              class="group flex flex-col bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-neutral-800 shadow-sm hover:shadow-xl hover:border-secondary-300/40 transition-all duration-300"
             >
-              <div class="relative overflow-hidden">
+              <!-- Poster Image & Status Pill -->
+              <div class="relative aspect-[3/4] overflow-hidden bg-slate-100 dark:bg-neutral-950">
                 <img
                   :src="show.image_thumbnail_path"
-                  alt="Show Thumbnail"
-                  class="w-full h-64 object-cover transition duration-300 transform hover:scale-110"
+                  :alt="show.name"
+                  loading="lazy"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                 />
-                <div
-                  class="absolute top-3 right-3 bg-indigo-600 text-white px-3 py-1 rounded-full text-xs font-semibold"
+                <span
+                  class="absolute top-3 right-3 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider rounded-full backdrop-blur-md shadow-md text-white"
+                  :class="show.status === 'Running' ? 'bg-emerald-600/90' : 'bg-primary/90'"
                 >
                   {{ show.status }}
-                </div>
+                </span>
               </div>
-              <div class="p-5">
-                <h2
-                  class="text-xl font-bold mb-2 text-gray-800 dark:text-white truncate"
-                >
-                  {{ show.name }}
-                </h2>
-                <div class="space-y-2 text-sm">
-                  <p class="text-gray-600 dark:text-gray-300 flex items-center">
-                    <span class="font-semibold mr-2">Network:</span
-                    >{{ show.network }}
-                  </p>
-                  <p class="text-gray-600 dark:text-gray-300 flex items-center">
-                    <span class="font-semibold mr-2">Country:</span
-                    >{{ show.country }}
-                  </p>
-                  <p class="text-gray-600 dark:text-gray-300 flex items-center">
-                    <span class="font-semibold mr-2">Start:</span
-                    >{{ show.start_date }}
-                  </p>
-                  <p class="text-gray-600 dark:text-gray-300 flex items-center">
-                    <span class="font-semibold mr-2">End:</span
-                    >{{ show.end_date || "Ongoing" }}
-                  </p>
+
+              <!-- Content Body -->
+              <div class="p-5 flex flex-col flex-1 justify-between gap-4">
+                <div>
+                  <h2 class="text-lg font-heading font-bold truncate text-slate-900 dark:text-white" :title="show.name">
+                    {{ show.name }}
+                  </h2>
+                  <dl class="mt-2.5 space-y-1.5 text-xs text-slate-600 dark:text-slate-400">
+                    <div class="flex justify-between">
+                      <dt class="font-medium text-slate-400">Network</dt>
+                      <dd class="font-semibold text-slate-700 dark:text-slate-200">{{ show.network || 'N/A' }}</dd>
+                    </div>
+                    <div class="flex justify-between">
+                      <dt class="font-medium text-slate-400">Country</dt>
+                      <dd class="font-semibold text-slate-700 dark:text-slate-200">{{ show.country || 'N/A' }}</dd>
+                    </div>
+                    <div class="flex justify-between">
+                      <dt class="font-medium text-slate-400">Air Schedule</dt>
+                      <dd class="font-semibold text-slate-700 dark:text-slate-200">
+                        {{ show.start_date || '?' }} &mdash; {{ show.end_date || "Ongoing" }}
+                      </dd>
+                    </div>
+                  </dl>
                 </div>
-                <div class="flex gap-3 mt-5">
+
+                <!-- Action CTA Buttons -->
+                <div class="flex gap-2.5 pt-2 border-t border-slate-100 dark:border-neutral-800/80">
                   <a
                     :href="getFullLink(show.permalink)"
-                    class="flex-1 text-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2.5 rounded-lg font-medium transition duration-300 ease-in-out transform hover:from-indigo-600 hover:to-purple-700 hover:shadow-lg"
-                    >Details</a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex-1 text-center py-2 px-3 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-neutral-800 hover:bg-slate-200 dark:hover:bg-neutral-700 text-slate-800 dark:text-slate-200 transition-colors"
                   >
+                    EpisoDate
+                  </a>
                   <router-link
                     :to="{ name: 'ShowDetail', params: { id: show.id } }"
-                    class="flex-1 text-center bg-gradient-to-r from-pink-500 to-rose-600 text-white py-2.5 rounded-lg font-medium transition duration-300 ease-in-out transform hover:from-pink-600 hover:to-rose-700 hover:shadow-lg"
-                    >View Show</router-link
+                    class="flex-1 text-center py-2 px-3 rounded-xl text-xs font-semibold bg-primary text-secondary-100 hover:opacity-90 transition-opacity shadow-sm"
                   >
+                    View Show
+                  </router-link>
                 </div>
               </div>
-            </div>
+            </article>
           </div>
-        </div>
-        <div v-else class="bg-white lg:min-w-0 lg:flex-1">
-          <Loader />
-        </div>
+        </section>
+
       </div>
-    </div>
+    </main>
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from "vue";
 import httpClient from "../plugins/interceptor";
-import { onMounted, ref } from "vue";
-import Loader from "../components/Loader.vue";
 import Header from "../components/Header.vue";
+import Loader from "../components/Loader.vue";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import {
-  BadgeCheckIcon,
+  BarsArrowUpIcon,
   ChevronDownIcon,
-  ChevronRightIcon,
-  CollectionIcon,
-  SearchIcon,
-  SortAscendingIcon,
-  StarIcon,
-} from "@heroicons/vue/solid";
-import { MenuAlt1Icon, XIcon } from "@heroicons/vue/outline";
+  MagnifyingGlassIcon,
+} from "@heroicons/vue/20/solid";
 
-export default {
-  components: {
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuItems,
-    BadgeCheckIcon,
-    ChevronDownIcon,
-    ChevronRightIcon,
-    CollectionIcon,
-    MenuAlt1Icon,
-    SearchIcon,
-    SortAscendingIcon,
-    StarIcon,
-    XIcon,
-    Loader,
-    Header,
-  },
-  setup() {
-    const data = ref(null);
-    const page = ref(1);
-    const searchStr = ref("");
+const data = ref(null);
+const page = ref(1);
+const searchStr = ref("");
+const loading = ref(false);
+const isSearching = ref(false);
 
-    const getNextPage = async () => {
-      page.value = page.value + 1;
-      await getMostPopular();
-    };
-
-    const getPreviousPage = async () => {
-      if (page.value > 1) {
-        page.value = page.value - 1;
-        await getMostPopular();
-      }
-    };
-
-    const getMostPopular = async () => {
-      try {
-        const response = await httpClient.get(
-          "most-popular?page=" + page.value
-        );
-        data.value = response.data;
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    const searchShow = async () => {
-      try {
-        const response = await httpClient.get(
-          `search?q=${searchStr.value}&page=1`
-        );
-        data.value = response.data;
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    const getFullLink = (link) => {
-      return "https://www.episodate.com/tv-show/" + link;
-    };
-
-    onMounted(async () => {
-      await getMostPopular();
-    });
-    return {
-      getNextPage,
-      getPreviousPage,
-      searchShow,
-      getFullLink,
-      data,
-      searchStr,
-    };
-  },
+const fetchShows = async (endpoint) => {
+  loading.value = true;
+  try {
+    const response = await httpClient.get(endpoint);
+    data.value = response.data;
+  } catch (error) {
+    console.error("Failed to fetch shows:", error);
+  } finally {
+    loading.value = false;
+  }
 };
+
+const getMostPopular = async () => {
+  isSearching.value = false;
+  await fetchShows(`most-popular?page=${page.value}`);
+};
+
+const searchShow = async () => {
+  if (!searchStr.value) {
+    page.value = 1;
+    await getMostPopular();
+    return;
+  }
+  isSearching.value = true;
+  page.value = 1;
+  await fetchShows(`search?q=${encodeURIComponent(searchStr.value)}&page=1`);
+};
+
+const getNextPage = async () => {
+  page.value += 1;
+  if (isSearching.value && searchStr.value) {
+    await fetchShows(`search?q=${encodeURIComponent(searchStr.value)}&page=${page.value}`);
+  } else {
+    await getMostPopular();
+  }
+};
+
+const getPreviousPage = async () => {
+  if (page.value > 1) {
+    page.value -= 1;
+    if (isSearching.value && searchStr.value) {
+      await fetchShows(`search?q=${encodeURIComponent(searchStr.value)}&page=${page.value}`);
+    } else {
+      await getMostPopular();
+    }
+  }
+};
+
+const getFullLink = (link) => `https://www.episodate.com/tv-show/${link}`;
+
+onMounted(getMostPopular);
 </script>
