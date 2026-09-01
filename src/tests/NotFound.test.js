@@ -3,7 +3,7 @@ import { mount, RouterLinkStub } from "@vue/test-utils";
 import NotFound from "../views/NotFound.vue";
 
 describe("NotFound.vue", () => {
-  let wrapper: ReturnType<typeof mount>;
+  let wrapper;
 
   beforeEach(() => {
     wrapper = mount(NotFound, {

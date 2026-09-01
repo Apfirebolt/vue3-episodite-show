@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { mount, flushPromises, RouterLinkStub } from "@vue/test-utils";
+import { nextTick } from "vue";
 import Home from "../views/Home.vue";
 import httpClient from "../plugins/interceptor";
 
@@ -72,9 +73,10 @@ describe("Home Component", () => {
     expect(httpClient.get).toHaveBeenCalledWith("most-popular?page=1");
   });
 
-  it("should display loader when data is fetching initially", () => {
+  it("should display loader when data is fetching initially", async () => {
     vi.mocked(httpClient.get).mockReturnValue(new Promise(() => {}));
     const wrapper = mount(Home, mountOptions);
+    await nextTick();
 
     expect(wrapper.find(".loader-stub").exists()).toBe(true);
   });

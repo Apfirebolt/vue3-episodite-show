@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { mount, flushPromises } from "@vue/test-utils";
+import { nextTick } from "vue";
 import ShowDetail from "../views/ShowDetail.vue";
 import httpClient from "../plugins/interceptor";
 
@@ -75,10 +76,11 @@ describe("ShowDetail.vue", () => {
     vi.restoreAllMocks();
   });
 
-  it("should render loader when data is loading initially", () => {
+  it("should render loader when data is loading initially", async () => {
     // Return a pending promise so loading state remains active
     vi.mocked(httpClient.get).mockReturnValue(new Promise(() => {}));
     const wrapper = mount(ShowDetail, mountOptions);
+    await nextTick();
 
     expect(wrapper.find(".loader-stub").exists()).toBe(true);
   });

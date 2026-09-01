@@ -21,7 +21,7 @@ const mountOptions = {
 };
 
 describe("Header.vue", () => {
-  let wrapper: ReturnType<typeof mount>;
+  let wrapper;
 
   beforeEach(() => {
     wrapper = mount(Header, mountOptions);
@@ -31,14 +31,13 @@ describe("Header.vue", () => {
     const brandLink = wrapper.findComponent(RouterLinkStub);
     expect(brandLink.exists()).toBe(true);
     expect(brandLink.props().to).toBe("/");
-    expect(wrapper.text()).toContain("Brand");
+    expect(wrapper.text()).toContain("Episodite");
   });
 
   it("renders desktop and mobile navigation links", () => {
     const text = wrapper.text();
     expect(text).toContain("Home");
-    expect(text).toContain("About");
-    expect(text).toContain("Gallery");
+    expect(text).toContain("Composable");
   });
 
   it("binds the correct router-link destinations to nav items", () => {
@@ -46,8 +45,7 @@ describe("Header.vue", () => {
     const destinations = routerLinks.map((link) => link.props().to);
 
     expect(destinations).toContainEqual({ name: "Home" });
-    expect(destinations).toContainEqual({ name: "About" });
-    expect(destinations).toContainEqual({ name: "Gallery" });
+    expect(destinations).toContainEqual({ name: "ComposableExample" });
   });
 
   it("renders the mobile menu toggle button with accessible label", () => {
