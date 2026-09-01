@@ -5,7 +5,7 @@
         <!-- Brand / Logo Area -->
         <div class="flex items-center">
           <router-link to="/" class="text-xl font-heading font-bold text-secondary-100 hover:text-white transition-colors">
-            Brand
+            Episodite
           </router-link>
         </div>
 
