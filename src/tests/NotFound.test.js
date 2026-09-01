@@ -1,45 +1,56 @@
-import { describe, it, expect } from "vitest";
-import { mount } from "@vue/test-utils";
+import { describe, it, expect, beforeEach } from "vitest";
+import { mount, RouterLinkStub } from "@vue/test-utils";
 import NotFound from "../views/NotFound.vue";
 
-describe("NotFound", () => {
-  it("renders the component", () => {
-    const wrapper = mount(NotFound);
+describe("NotFound.vue", () => {
+  let wrapper: ReturnType<typeof mount>;
+
+  beforeEach(() => {
+    wrapper = mount(NotFound, {
+      global: {
+        stubs: {
+          RouterLink: RouterLinkStub,
+        },
+      },
+    });
+  });
+
+  it("renders the component successfully", () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  it("displays the 404 image", () => {
-    const wrapper = mount(NotFound);
-    const img = wrapper.find("img");
-    expect(img.exists()).toBe(true);
-    expect(img.attributes("alt")).toBe("Not Found");
-  });
-
-  it('displays "Not Found Page" heading', () => {
-    const wrapper = mount(NotFound);
-    expect(wrapper.text()).toContain("Not Found Page");
-  });
-
-  it("displays error message", () => {
-    const wrapper = mount(NotFound);
+  it("renders the 404 error badge and headings", () => {
+    expect(wrapper.text()).toContain("Error 404");
+    expect(wrapper.text()).toContain("Looking for something?");
     expect(wrapper.text()).toContain(
-      "The page you are looking for does not exist."
+      "We couldn't locate that page. Try one of the links below to continue browsing."
     );
   });
 
-  it("has correct CSS classes for layout", () => {
-    const wrapper = mount(NotFound);
-    const container = wrapper.find(".flex");
-    expect(container.exists()).toBe(true);
-    expect(container.classes()).toContain("items-center");
-    expect(container.classes()).toContain("justify-center");
+  it("renders all navigation router-links pointing to the home route", () => {
+    const links = wrapper.findAllComponents(RouterLinkStub);
+    expect(links.length).toBe(3);
+
+    links.forEach((link) => {
+      expect(link.props().to).toBe("/");
+    });
   });
 
-  it("has centered white card container", () => {
-    const wrapper = mount(NotFound);
-    const card = wrapper.find(".bg-white");
-    expect(card.exists()).toBe(true);
-    expect(card.classes()).toContain("rounded-lg");
-    expect(card.classes()).toContain("shadow-md");
+  it("renders the exploration cards with proper titles and descriptions", () => {
+    expect(wrapper.text()).toContain("Browse Shows");
+    expect(wrapper.text()).toContain("Explore top-rated and trending TV series.");
+    expect(wrapper.text()).toContain("Search Database");
+    expect(wrapper.text()).toContain("Find specific episodes and air schedules.");
+    expect(wrapper.text()).toContain("Return to main dashboard");
+  });
+
+  it("applies proper responsive layout and theme classes", () => {
+    const root = wrapper.find("div");
+    expect(root.classes()).toContain("min-h-screen");
+    expect(root.classes()).toContain("bg-slate-50");
+
+    const grid = wrapper.find(".grid");
+    expect(grid.classes()).toContain("grid-cols-1");
+    expect(grid.classes()).toContain("sm:grid-cols-2");
   });
 });
