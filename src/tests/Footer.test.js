@@ -1,42 +1,54 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { mount } from "@vue/test-utils";
-import Footer from "../components/Footer.vue";
+import { mount, RouterLinkStub } from "@vue/test-utils";
+import NotFound from "../views/NotFound.vue";
 
-describe("Footer", () => {
+describe("NotFound.vue (Option 2 - Bento Layout)", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = mount(Footer);
+    wrapper = mount(NotFound, {
+      global: {
+        stubs: {
+          RouterLink: RouterLinkStub,
+        },
+      },
+    });
   });
 
-  it("renders the footer component", () => {
-    expect(wrapper.find("footer").exists()).toBe(true);
+  it("renders the 404 error badge and headings", () => {
+    expect(wrapper.text()).toContain("Error 404");
+    expect(wrapper.text()).toContain("Looking for something?");
+    expect(wrapper.text()).toContain(
+      "We couldn't locate that page. Try one of the links below to continue browsing."
+    );
   });
 
-  it("displays copyright text", () => {
-    const copyrightText = wrapper.find("p").text();
-    expect(copyrightText).toContain("© 2025 Episodate. All rights reserved.");
+  it("renders all navigation router-links with proper targets", () => {
+    const links = wrapper.findAllComponents(RouterLinkStub);
+    
+    // Expect 3 links: "Browse Shows", "Search Database", and "Return to main dashboard"
+    expect(links.length).toBe(3);
+
+    // Verify each link redirects to home / root destination
+    links.forEach((link) => {
+      expect(link.props().to).toBe("/");
+    });
   });
 
-  it("has primary background class", () => {
-    expect(wrapper.find("footer").classes()).toContain("bg-primary");
+  it("renders the Browse Shows and Search Database card sections", () => {
+    expect(wrapper.text()).toContain("Browse Shows");
+    expect(wrapper.text()).toContain("Explore top-rated and trending TV series.");
+    expect(wrapper.text()).toContain("Search Database");
+    expect(wrapper.text()).toContain("Find specific episodes and air schedules.");
   });
 
-  it("renders dark mode toggle button", () => {
-    const button = wrapper.find("button");
-    expect(button.exists()).toBe(true);
-    expect(button.text()).toContain("Enable Dark Mode");
-  });
+  it("applies proper theme and responsive layout classes", () => {
+    const root = wrapper.find("div");
+    expect(root.classes()).toContain("min-h-screen");
+    expect(root.classes()).toContain("bg-slate-50");
 
-  it("calls toggleDarkMode when button is clicked", async () => {
-    const button = wrapper.find("button");
-    await button.trigger("click");
-    // Note: You may need to mock useDarkMode composable to verify the call
-  });
-
-  it("has correct button styling classes", () => {
-    const button = wrapper.find("button");
-    expect(button.classes()).toContain("btn");
-    expect(button.classes()).toContain("bg-secondary-100");
+    const grid = wrapper.find(".grid");
+    expect(grid.classes()).toContain("grid-cols-1");
+    expect(grid.classes()).toContain("sm:grid-cols-2");
   });
 });
